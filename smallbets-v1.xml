@@ -22,7 +22,7 @@
   <grid_spacing>10</grid_spacing> <!-- //do I need these or is grid spacing for autonomy implementation?-->
   <grid_size>1000</grid_size>
 
- <terrain>OUR OWN TERRAIN</terrain> <!-- //likely munk.xml like in the message to Shaun-->
+ <terrain>munk</terrain> <!-- //likely munk.xml like in the message to Shaun-->
   <background_color>191 191 191</background_color> <!-- Red Green Blue -->
   <gui_update_period>100</gui_update_period> <!-- milliseconds --> 
 
@@ -46,7 +46,7 @@
                       center="0, 0, 500"
                       rpy="0, 0, 0"
                       >Boundary</entity_interaction> 
-  <entity_interaction> WHAT HERE? </entity_interaction>
+ <!-- <entity_interaction> WHAT HERE? </entity_interaction> -->
 <!--//in what case would we put "OceanParameters" above? or is this not calling any entity_interac?-->
 <!--//for the record I dont think that we need those variable but I want to learn what they are and what they do.-->
 <!-- nvrm I thik that ocean params would go hre-->
@@ -67,13 +67,16 @@
 
   <heading>0</heading>
   <!--do I need controller and sensor tags here as well?-->
-  <autonomy>ROSControl</autonomy>
+
   <controller>SimpleAircraftControllerPID</controller>
   <motion_model>SimpleAircraft</motion_model>
+    
   <visual_model>sea-angler</visual_model>
 
   <!-- do I include a motion model here? do I make one?-->
-
+  <autonomy show_text_label="true"
+            generate_entities="false"
+            enable_boundary_control="true">Hover</autonomy>
   </entity>
 
 <entity>
@@ -88,12 +91,15 @@
   <z>-50</z>
 
   <heading>180</heading>
-  <autonomy>ROSControl</autonomy>
+
   <controller>SimpleAircraftControllerPID</controller>
   <motion_model>SimpleAircraft</motion_model>
+    
   <visual_model>sea-angler</visual_model>
   <!--do I need controller and sensor tags here as well?-->
-  <visual_model>sea-angler</visual_model>
+  <autonomy show_text_label="true"
+            generate_entities="false"
+            enable_boundary_control="true">Hover</autonomy>
 
 </entity>
 
