@@ -67,6 +67,9 @@
 
   <heading>0</heading>
   <!--do I need controller and sensor tags here as well?-->
+  <autonomy>ROSControl</autonomy>
+  <controller>SimpleAircraftControllerPID</controller>
+  <motion_model>SimpleAircraft</motion_model>
   <visual_model>sea-angler</visual_model>
 
   <!-- do I include a motion model here? do I make one?-->
@@ -85,6 +88,10 @@
   <z>-50</z>
 
   <heading>180</heading>
+  <autonomy>ROSControl</autonomy>
+  <controller>SimpleAircraftControllerPID</controller>
+  <motion_model>SimpleAircraft</motion_model>
+  <visual_model>sea-angler</visual_model>
   <!--do I need controller and sensor tags here as well?-->
   <visual_model>sea-angler</visual_model>
 
