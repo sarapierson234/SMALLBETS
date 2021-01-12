@@ -3,7 +3,7 @@
 <runscript  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     name="Ocean Parameters">
 
-  <run start="0.0" end="100" dt="0.1"
+  <run start="0.0" end="500" dt="0.1"
        time_warp="10"
        enable_gui="true"
        network_gui="false"
@@ -36,7 +36,7 @@
 
 <!-- maybe include a metrics here for counting how many times the uuvs try to ping one another?-->
 
-<!--  <entity_interaction>TerrainGenerator</entity_interaction>-->
+<entity_interaction center="0, 0, -100">TerrainGenerator</entity_interaction>
 <!--entity_interaction>TerrainGenerator</entity_interaction-->
 <!--//in what case would we put "OceanParameters" above? or is this not calling any entity_interac?-->
 <!--//for the record I dont think that we need those variable but I want to learn what they are and what they do.-->
@@ -62,10 +62,10 @@
               mode="racetrack"
               show_waypoints="true"
               waypoints="
-                         [ XYZ 0 100   0  -5 0 0 0 5 -1 ]
-                         [ XYZ 0 100 100 -20 0 0 0 5 -1 ]
-                         [ XYZ 0   0 100  -5 0 0 0 5 -1 ]
-                         [ XYZ 0   0   0 -10 0 0 0 5 -1 ]
+                         [ XYZ 0 100   0  -50 0 0 0 5 -1 ]
+                         [ XYZ 0 100 100 -50 0 0 0 5 -1 ]
+                         [ XYZ 0   0 100  -75 0 0 0 5 -1 ]
+                         [ XYZ 0   0   0 -75 0 0 0 5 -1 ]
                          "
               >WaypointGenerator</autonomy>
 
@@ -101,10 +101,11 @@
               mode="racetrack"
               show_waypoints="true"
               waypoints="
-                         [ XYZ 0 100   0  -5 0 0 0 5 -1 ]
-                         [ XYZ 0 100 100 -20 0 0 0 5 -1 ]
-                         [ XYZ 0   0 100  -5 0 0 0 5 -1 ]
-                         [ XYZ 0   0   0 -10 0 0 0 5 -1 ]
+                         [ XYZ 0   0 100  -75 0 0 0 5 -1 ]
+                         [ XYZ 0   0   0 -75 0 0 0 5 -1 ]
+                         [ XYZ 0 100   0  -50 0 0 0 5 -1 ]
+                         [ XYZ 0 100 100 -50 0 0 0 5 -1 ]
+
                          "
               >WaypointGenerator</autonomy>
 
