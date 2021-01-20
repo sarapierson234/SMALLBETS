@@ -77,11 +77,31 @@ OceanParameters::OceanParameters() {
 //what does std::map<std::string mean?
 bool OceanParameters::init(std::map<std::string, std::string> &mission_params,
                                std::map<std::string, std::string> &plugin_params) {
+    //I assume we need these here to make the data cube a legit cube
+    double x_length = sc::get<double>("x_length", plugin_params, 500.0);
+    double y_length = sc::get<double>("y_length", plugin_params, 500.0);
+    double z_length = sc::get<double>("z_length", plugin_params, 500.0);
+    double x_resolution = sc::get<double>("x_resolution", plugin_params, 1.0);
+    double y_resolution = sc::get<double>("y_resolution", plugin_params, 1.0);
+    double z_resolution = sc::get<double>("z_resolution", plugin_params, 1.0);
+    double z_min = sc::get<double>("z_min", plugin_params, -std::numeric_limits<double>::infinity());
+    double z_max = sc::get<double>("z_max", plugin_params, +std::numeric_limits<double>::infinity());
+    double z_std = sc::get<double>("z_std", plugin_params, 1.0); 
     return true;
 }
+  auto callback =[&] (scrimmage::MessagePtr<<sci::Terrain> msg) {
+        cout << "Data Map" << map_.proto->coords() << endl;
+        cout << "Received a boundary info message!" << endl;
+subscribe<sci::Terrain>("GlobalNetwork", "Terrain", callback)
+//the documentation said to place this below the init portion of the code,
+//if you want to subscribe to something. And then the subscription is below
+//it obviously. When I run the code I dont get any messages getting written out though
+  //I dont see the "Data Map" string showing up. I am also not quite sure what the 
+  //format of the data is that I am subscribing to, so I am a little confused how to 
+  //1. even see/visualize/conceptualize the Terrain Data and
+  //2. how to manipulate it
 
-//this takes a list of scrimmage entities as inputs, so I  
-//assume that I put the GroundTerrain generaator here
+
 bool OceanParameters::step_entity_interaction(std::list<sc::EntityPtr> &ents,
                                                   double t, double dt) {
     if (ents.empty()) {
