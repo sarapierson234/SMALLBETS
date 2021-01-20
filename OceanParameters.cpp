@@ -24,10 +24,14 @@
  * @author Eric Squires <eric.squires@gtri.gatech.edu>
  * @date 31 July 2017
  * @version 0.1.0
- * @brief Brief file description.
+MODIFIED BY:
+ * @author Sara Pierson <spierson@gatech.edu>
+ * @date Novermber 2020
  * @section DESCRIPTION
- * A Long description goes here.
- *
+ * This plugin will get information from the terrain generator to create a sudo realistic/munk ocean profile
+%This environmental information will be published to scrimmage memory (a global variable?) and then a sensor model will subscribe to the 
+%published information. The sensor will get the info, then write it out in a txt/csv file so that it can be given to BELLHOP for reduction/
+%sound analysis  *
  */
 
 #include <my-scrimmage-plugins/plugins/interaction/OceanParameters/OceanParameters.h>
@@ -36,6 +40,15 @@
 #include <scrimmage/entity/Entity.h>
 #include <scrimmage/plugin_manager/RegisterPlugin.h>
 #include <scrimmage/math/State.h>
+//from looking at other code as an example I included the following, delete the ones that may be unecessary
+//On second thought/look I think that "pubsub" is ROS specific (the example I am looking at is ROSCompass.cpp)
+//but I do need to figure out how to make a publisher/subcriber in here so that I can publish the environmental info 
+// to the general scrimmage memory and then subscribe to it from the sensor plugin
+#include <scrimmag/parse/ParseUtils.h>
+#include <scrimmage/pubsub/Message.h>
+#include <scrimmage/pubsub/Publisher.h>
+#include <scrimmage/pubsub/Subscriber.h>
+
 
 #include <memory>
 #include <limits>
@@ -46,6 +59,7 @@ using std::endl;
 
 namespace sc = scrimmage;
 
+//
 REGISTER_PLUGIN(scrimmage::EntityInteraction,
                 scrimmage::interaction::OceanParameters,
                 OceanParameters_plugin)
@@ -56,6 +70,11 @@ namespace interaction {
 OceanParameters::OceanParameters() {
 }
 
+//the docs just say that init is implemented like in all other files
+//but what does the init actually do? Just initialize variables?
+//(is it right to call them variables or do the initialized pieces here
+// go by another name?)
+//what does std::map<std::string mean?
 bool OceanParameters::init(std::map<std::string, std::string> &mission_params,
                                std::map<std::string, std::string> &plugin_params) {
     //I assume we need these here to make the data cube a legit cube
@@ -82,19 +101,7 @@ subscribe<sci::Terrain>("GlobalNetwork", "Terrain", callback)
   //1. even see/visualize/conceptualize the Terrain Data and
   //2. how to manipulate it
 
-//now that we have subscribed above, we need to manipulate the bathymetry data
-//and create a datacube 
 
-//data manipulation here
-//after we are done with that we move on to the following
-
-//I put the following publishing line below because in the TG.cpp a similar
-//line was also above the step-entity-bool line
-    oceanparameters_pub_ = advertise("GlobalNetwork", "Ocean Parameters");
-
-    return true;
-    
-  
 bool OceanParameters::step_entity_interaction(std::list<sc::EntityPtr> &ents,
                                                   double t, double dt) {
     if (ents.empty()) {
