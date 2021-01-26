@@ -21,6 +21,7 @@ target_compile_options(${LIBRARY_NAME}
 
 target_link_libraries(${LIBRARY_NAME}
   scrimmage-core
+  Smallbets-plugins-msgs
 )
 
 set(_soversion ${LIB_MAJOR}.${LIB_MINOR}.${LIB_RELEASE})

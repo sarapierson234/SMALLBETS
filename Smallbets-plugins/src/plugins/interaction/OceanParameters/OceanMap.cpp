@@ -47,155 +47,91 @@ namespace interaction {
 
 OceanMap::OceanMap() {}
 
-OceanMap::OceanMap(std::shared_ptr<std::normal_distribution<double>> rng,
-                       std::shared_ptr<std::default_random_engine> gener,
-                       const Technique &technique,
-                       const Eigen::Vector3d &center,
-                       const double &x_length, const double &y_length,
-                       const double &x_resolution, const double &y_resolution,
-                       const double &z_min, const double &z_max,
-                       const Eigen::Vector3d &color) :
-        rng_(rng), gener_(gener), technique_(technique), center_(center),
+OceanMap::OceanMap(const Technique &technique,const double &x_length,
+             const double &y_length, const double &z_length,
+             const double &x_resolution, const double &y_resolution,
+             const double &z_resolution) :
+        technique_(technique),
         x_length_(x_length),
         y_length_(y_length),
+        z_length_(z_length),
         x_resolution_(x_resolution),
-        y_resolution_(y_resolution), z_min_(z_min), z_max_(z_max),
-        color_(color),
-        num_x_cols_(x_length_ / x_resolution_),
-        num_y_rows_(y_length_ / y_resolution_),
-        grid_(std::vector<std::vector<Node>>(num_y_rows_, std::vector<Node>(num_x_cols_))) {
+        y_resolution_(y_resolution),
+        z_resolution_(z_resolution),
+        grid_(std::vector<Node>(x_length_*y_length_*z_length_)) {
     generate();
 }
 
-OceanMap::OceanMap(const scrimmage_msgs::Terrain &terrain) :
-        rng_(nullptr), gener_(nullptr), center_(Eigen::Vector3d(0, 0, 0)),
-        x_length_(terrain.x_length()), y_length_(terrain.y_length()),
-        x_resolution_(terrain.x_resolution()),
-        y_resolution_(terrain.y_resolution()), z_min_(terrain.z_min()),
-        z_max_(terrain.z_max()), num_x_cols_(x_length_ / x_resolution_),
-        num_y_rows_(y_length_ / y_resolution_),
-        grid_(std::vector<std::vector<Node>>(num_y_rows_, std::vector<Node>(num_x_cols_))) {
-    sc::set(center_, terrain.center());
-
-    // Populate the grid
-    for (int r = 0; r < terrain.map().row_size(); ++r) {
-        for (int c = 0; c < terrain.map().row(r).col_size(); ++c) {
-            grid_[r][c].height = terrain.map().row(r).col(c);
-            grid_[r][c].is_set = true;
-        }
-    }
-}
 
 bool OceanMap::generate() {
-    if (gener_ == nullptr || rng_ == nullptr) {
-        cout << "default_random_enginer is nullptr" << endl;
-        return false;
-    }
-
     if (technique_ == Technique::MUNK) {
         return generate_Munk();
-    } return generate_linear();
+    } return false;
 }
 
 bool OceanMap::generate_Munk() {
     // Force the altitude center to be at the midpoint between z_max and z_min
-    center_(2) = (z_max_ + z_min_) / 2.0;
-
-    // Initialize the map, such that row 0 is at z_min and the last row is at
-    // z_max, with a linear interpolation across the rows. Also, add noise to
-    // each height value.
-    double z_step = (z_max_ - z_min_) / num_y_rows_;
-
-    for (unsigned int row = 0; row < num_y_rows_; ++row) {
-        double height = z_step * row;
-        for (unsigned int col = 0; col < num_x_cols_; ++col) {
-            grid_[row][col].height = height + (*rng_)(*gener_);
-            grid_[row][col].is_set = true;
+    double C_z_ = 1500; //Sound Speed
+    // MUNK Profile C(z) = 1500 * (1 + E * (zt - 1 + E^-zt))
+    // E = 0.00737
+    // zt = (2 * (z - zc))/zc
+    // zc = 1300; //m
+    double idx = 0;
+    int row
+    for (unsigned int row = 0; row < y_length_; ++row) {
+        for (unsigned int col = 0; col < x_length_; ++col) {
+            for (unsigned int depth = 0; depth < z_length_; ++depth) {
+                idx += 1;
+                grid_[row+col+depth].speed = C_z_ + idx;
+                grid_[row+col+depth].is_set = true;
+            }
         }
     }
-    center_height_adjust();
-    clamp_height();
     return true;
 }
 
-void OceanMap::center_height_adjust() {
-    // Make sure the grid's center is located at the appropriate height.
-    double offset = center_(2) - grid_[std::round(num_y_rows_/2.0)][std::round(num_x_cols_/2.0)].height;
-    for (unsigned int row = 0; row < num_y_rows_; ++row) {
-        for (unsigned int col = 0; col < num_x_cols_; ++col) {
-            grid_[row][col].height += offset;
-        }
-    }
-}
-
-void OceanMap::clamp_height() {
-    // Ensure all height values fall within z_min and z_max
-    for (unsigned int row = 0; row < num_y_rows_; ++row) {
-        for (unsigned int col = 0; col < num_x_cols_; ++col) {
-            grid_[row][col].height = clamp(grid_[row][col].height, z_min_, z_max_);
-        }
-    }
-}
-
-double OceanMap::get_neighbor_avg(const int &row, const int &col) {
+double OceanMap::get_neighbor_avg(const int &row, const int &col, const int &depth) {
     unsigned int neighbors = 0;
-    double height_sum = 0;
+    double speed_sum = 0;
 
     if (row > 0) {
-        height_sum += grid_[row-1][col].height;
+        speed_sum += grid_[depth+row+col].speed;
         ++neighbors;
     }
     if (col > 0) {
-        height_sum += grid_[row][col-1].height;
+        speed_sum += grid_[depth+row+col].speed;
         ++neighbors;
     }
     if (row > 0 && col > 0) {
-        height_sum += grid_[row-1][col-1].height;
+        speed_sum += grid_[depth+row+col].speed;
         ++neighbors;
     }
 
-    return (neighbors == 0) ? 0 : height_sum / neighbors;
+    return (neighbors == 0) ? 0 : speed_sum / neighbors;
 }
 
-scrimmage::ShapePtr OceanMap::shape() {
-    // Create the shape associated with this terrain
-    sc::ShapePtr shape = std::make_shared<sp::Shape>();
-    shape->set_persistent(true);
-    sc::set(shape->mutable_color(), color_(0), color_(1), color_(2));
-    shape->mutable_pointcloud()->set_size(3);
-
-    for (unsigned int row = 0; row < num_y_rows_; ++row) {
-        double y = center_(1)-y_length_ / 2.0 + row * y_resolution_;
-        for (unsigned int col = 0; col < num_x_cols_; ++col) {
-            sp::Vector3d *p = shape->mutable_pointcloud()->add_point();
-            double x = center_(0)-x_length_ / 2.0 + col * x_resolution_;
-            sc::set(p, x, y, grid_[row][col].height);
+Smallbets_plugins::msgs::Ocean OceanMap::proto() {
+    Smallbets_plugins::msgs::Ocean Ocean;
+    Ocean.set_x_length(x_length_);
+    Ocean.set_y_length(y_length_);
+    Ocean.set_z_length(z_length_);
+    Ocean.set_x_resolution(x_resolution_);
+    Ocean.set_y_resolution(y_resolution_);
+    Ocean.set_z_resolution(z_resolution_);
+    std::cout << "You Are here" << std::endl;
+    for (unsigned int r = 0; r < y_length_; ++r) {
+        for (unsigned int c = 0; c < x_length_; ++c) {
+            for (unsigned int d = 0; c < z_length_; ++d) {
+                std::cout << "You Are There: " << grid_[r+c+d].speed << std::endl;
+                Ocean.set_map(grid_[r+c+d].speed);
+            }
         }
     }
-    return shape;
+    return Ocean;
 }
 
-scrimmage_msgs::Terrain OceanMap::proto() {
-    scrimmage_msgs::Terrain terrain;
-
-    sc::set(terrain.mutable_center(), center_);
-    terrain.set_x_length(x_length_);
-    terrain.set_y_length(y_length_);
-    terrain.set_x_resolution(x_resolution_);
-    terrain.set_y_resolution(y_resolution_);
-    terrain.set_z_min(z_min_);
-    terrain.set_z_max(z_max_);
-
-    for (unsigned int r = 0; r < num_y_rows_; ++r) {
-        scrimmage_msgs::Array1D *row = terrain.mutable_map()->add_row();
-        for (unsigned int c = 0; c < num_x_cols_; ++c) {
-            row->add_col(grid_[r][c].height);
-        }
-    }
-    return terrain;
-}
-
-boost::optional<double> OceanMap::height_at(const double &x, const double &y) {
+//Method to get Sound speed (depth)
+/*boost::optional<double> OceanMap::height_at(const double &x, const double &y) {
     int row = std::floor((y + y_length_/2.0 - center_(1)) / y_resolution_);
     int col = std::floor((x + x_length_/2.0 - center_(0)) / x_resolution_);
     if (row < 0 || row >= static_cast<int>(num_y_rows_) ||
@@ -204,7 +140,7 @@ boost::optional<double> OceanMap::height_at(const double &x, const double &y) {
         return boost::optional<double>{};
     }
     return grid_[row][col].height;
-}
+}*/
 
 } // namespace interaction
 } // namespace scrimmage

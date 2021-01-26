@@ -35,6 +35,7 @@
 
 #include <scrimmage/simcontrol/EntityInteraction.h>
 #include <scrimmage/entity/Entity.h>
+#include <Smallbets-plugins/plugins/interaction/OceanParameters/OceanMap.h>
 
 #include <map>
 #include <list>
@@ -51,6 +52,9 @@ class OceanParameters : public scrimmage::EntityInteraction {
     bool step_entity_interaction(std::list<scrimmage::EntityPtr> &ents,
                                  double t, double dt) override;
  protected:
+   OceanMap map_;
+   bool ocean_published_ = false;
+   scrimmage::PublisherPtr ocean_pub_;
  private:
 };
 } // namespace interaction

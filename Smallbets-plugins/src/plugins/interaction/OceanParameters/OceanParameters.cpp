@@ -40,6 +40,10 @@
 #include <scrimmage/entity/Entity.h>
 #include <scrimmage/plugin_manager/RegisterPlugin.h>
 #include <scrimmage/math/State.h>
+#include <scrimmage/parse/ParseUtils.h>
+#include <scrimmage/common/Random.h>
+#include <scrimmage/proto/Shape.pb.h>
+#include <scrimmage/pubsub/Publisher.h>
 
 #include <memory>
 #include <limits>
@@ -49,6 +53,7 @@ using std::cout;
 using std::endl;
 
 namespace sc = scrimmage;
+namespace sp = scrimmage_proto;
 
 REGISTER_PLUGIN(scrimmage::EntityInteraction,
                 scrimmage::interaction::OceanParameters,
@@ -62,16 +67,14 @@ OceanParameters::OceanParameters() {
 
 bool OceanParameters::init(std::map<std::string, std::string> &mission_params,
                             std::map<std::string, std::string> &plugin_params) {
-    double x_length = sc::get<double>("x_length", plugin_params, 500.0);
-    double y_length = sc::get<double>("y_length", plugin_params, 500.0);
+    double x_length = sc::get<double>("x_length", plugin_params, 100.0);
+    double y_length = sc::get<double>("y_length", plugin_params, 100.0);
+    double z_length = sc::get<double>("z_length", plugin_params, 50.0);
     double x_resolution = sc::get<double>("x_resolution", plugin_params, 1.0);
     double y_resolution = sc::get<double>("y_resolution", plugin_params, 1.0);
-    double z_min = sc::get<double>("z_min", plugin_params, -std::numeric_limits<double>::infinity());
-    double z_max = sc::get<double>("z_max", plugin_params, +std::numeric_limits<double>::infinity());
-    double z_std = sc::get<double>("z_std", plugin_params, 1.0);
+    double z_resolution = sc::get<double>("z_resolution", plugin_params, 1.0);
 
-    std::string technique_str = sc::get("technique", plugin_params,
-                                        "MUNK");
+    std::string technique_str = sc::get("technique", plugin_params, "Munk");
     OceanMap::Technique technique;
     if (technique_str == "Munk") {
         technique = OceanMap::Technique::MUNK;
@@ -80,38 +83,10 @@ bool OceanParameters::init(std::map<std::string, std::string> &mission_params,
         technique = OceanMap::Technique::MUNK;
     }
 
-    // If the seed defined in the plugin parameters is greater than 0,
-    // construct a new random pointer based on the provided seed. Otherwise,
-    // use the parent's random instance.
-    int seed = sc::get<int>("seed", plugin_params, -1);
-    if (seed > 0) {
-        random_ = std::make_shared<Random>();
-        random_->seed(seed);
-    } else {
-        random_ = parent_->random();
-    }
-
-    std::vector<double> center_vec;
-    Eigen::Vector3d center_point(0, 0, 0);
-    if (str2container(sc::get<std::string>("center", plugin_params, "0, 0, 0"),
-                      ", ", center_vec, 3)) {
-        center_point = vec2eigen(center_vec);
-    }
-
-    std::vector<double> color_vec;
-    Eigen::Vector3d color(0, 0, 0);
-    if (str2container(sc::get<std::string>("color", plugin_params, "0, 255, 0"),
-                      ", ", color_vec, 3)) {
-        color = vec2eigen(color_vec);
-    }
-
-    map_ = OceannMap(random_->make_rng_normal(0.0, z_std),
-                      random_->gener(), technique,
-                      center_point,
-                      x_length, y_length, x_resolution, y_resolution,
-                      z_min, z_max, color);
-
-    terrain_pub_ = advertise("GlobalNetwork", "Terrain");
+    map_ = OceanMap(technique, x_length, y_length, z_length,
+                        x_resolution, y_resolution, z_resolution);
+    
+    ocean_pub_ = advertise("GlobalNetwork", "ocean");
 
     return true;
 }
@@ -121,14 +96,10 @@ bool OceanParameters::step_entity_interaction(std::list<sc::EntityPtr> &ents,
                                                   double t, double dt) {
     if (not ocean_published_) {
         ocean_published_ = true;
-
         // Publish the terrain protobuf message
-        auto msg = std::make_shared<sc::Message<scrimmage_msgs::OceanParam>>();
+        auto msg = std::make_shared<sc::Message<Smallbets_plugins::msgs::Ocean>>();
         msg->data = map_.proto();
-        terrain_pub_->publish(msg);
-
-        // Draw the terrain
-        draw_shape(map_.shape());
+        ocean_pub_->publish(msg);
     }
     return true;
 }
