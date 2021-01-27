@@ -76,14 +76,11 @@ bool OceanMap::generate_Munk() {
     // E = 0.00737
     // zt = (2 * (z - zc))/zc
     // zc = 1300; //m
-    double idx = 0;
-    int row
-    for (unsigned int row = 0; row < y_length_; ++row) {
-        for (unsigned int col = 0; col < x_length_; ++col) {
-            for (unsigned int depth = 0; depth < z_length_; ++depth) {
-                idx += 1;
-                grid_[row+col+depth].speed = C_z_ + idx;
-                grid_[row+col+depth].is_set = true;
+    for (unsigned int row = 0; row <= y_length_; ++row) {
+        for (unsigned int col = 0; col <= x_length_; ++col) {
+            for (unsigned int depth = 0; depth <= z_length_; ++depth) {
+                grid_[(row*x_length_*z_length_)+(col*z_length_)+depth].speed = C_z_ + depth;
+                //grid_[(row*x_length_*z_length_)+(col*z_length_)+depth].is_set = true;
             }
         }
     }
@@ -121,9 +118,10 @@ Smallbets_plugins::msgs::Ocean OceanMap::proto() {
     std::cout << "You Are here" << std::endl;
     for (unsigned int r = 0; r < y_length_; ++r) {
         for (unsigned int c = 0; c < x_length_; ++c) {
-            for (unsigned int d = 0; c < z_length_; ++d) {
-                std::cout << "You Are There: " << grid_[r+c+d].speed << std::endl;
-                Ocean.set_map(grid_[r+c+d].speed);
+            for (unsigned int d = 0; d < z_length_; ++d) {
+                int idx = (r*x_length_*z_length_)+(c*z_length_)+d;
+                Ocean.mutable_map()->add_row(grid_[idx].speed);
+                std::cout << "You Are There: " << grid_[idx].speed << std::endl;
             }
         }
     }
