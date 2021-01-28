@@ -72,17 +72,7 @@ class OceanMap {
     double y_resolution_;
     double z_resolution_;
 
-    unsigned int num_x_ = x_length_;
-    unsigned int num_y_ = y_length_;
-    unsigned int num_z_ = z_length_;
-
-    class Node {
-     public:
-        double speed = 0;
-        bool is_set = false;
-    };
-
-    std::vector<Node> grid_;
+    std::vector<double> grid_;
     double get_neighbor_avg(const int &row, const int &col, const int &depth);
 
  private:

@@ -58,7 +58,7 @@ OceanMap::OceanMap(const Technique &technique,const double &x_length,
         x_resolution_(x_resolution),
         y_resolution_(y_resolution),
         z_resolution_(z_resolution),
-        grid_(std::vector<Node>(x_length_*y_length_*z_length_)) {
+        grid_(std::vector<double>(x_length_*y_length_*z_length_)) {
     generate();
 }
 
@@ -72,14 +72,16 @@ bool OceanMap::generate() {
 bool OceanMap::generate_Munk() {
     // Force the altitude center to be at the midpoint between z_max and z_min
     double C_z_ = 1500; //Sound Speed
-    // MUNK Profile C(z) = 1500 * (1 + E * (zt - 1 + E^-zt))
-    // E = 0.00737
-    // zt = (2 * (z - zc))/zc
-    // zc = 1300; //m
-    for (unsigned int row = 0; row <= y_length_; ++row) {
-        for (unsigned int col = 0; col <= x_length_; ++col) {
-            for (unsigned int depth = 0; depth <= z_length_; ++depth) {
-                grid_[(row*x_length_*z_length_)+(col*z_length_)+depth].speed = C_z_ + depth;
+    double z = 0;
+    // MUNK Profile C(z) = 1500 * (1 + E * (zt - 1 + E^-zt)); zt = (2 * (z - zc))/zc;
+    double ep = 0.00737;
+    double zc = 1300; //m depth of minimum sound speed
+    for (unsigned int row = 0; row < y_length_; ++row) {
+        for (unsigned int col = 0; col < x_length_; ++col) {
+            for (unsigned int depth = 0; depth < z_length_; ++depth) {
+                z = depth * z_resolution_;
+                C_z_ = 1500 * (1 + ep * ((2 * (z - zc))/zc - 1 + exp((-(2 * (z - zc))/zc))));
+                grid_[(row*x_length_*z_length_)+(col*z_length_)+depth] = C_z_;
                 //grid_[(row*x_length_*z_length_)+(col*z_length_)+depth].is_set = true;
             }
         }
@@ -92,15 +94,15 @@ double OceanMap::get_neighbor_avg(const int &row, const int &col, const int &dep
     double speed_sum = 0;
 
     if (row > 0) {
-        speed_sum += grid_[depth+row+col].speed;
+        speed_sum += grid_[depth+row+col];
         ++neighbors;
     }
     if (col > 0) {
-        speed_sum += grid_[depth+row+col].speed;
+        speed_sum += grid_[depth+row+col];
         ++neighbors;
     }
     if (row > 0 && col > 0) {
-        speed_sum += grid_[depth+row+col].speed;
+        speed_sum += grid_[depth+row+col];
         ++neighbors;
     }
 
@@ -120,8 +122,8 @@ Smallbets_plugins::msgs::Ocean OceanMap::proto() {
         for (unsigned int c = 0; c < x_length_; ++c) {
             for (unsigned int d = 0; d < z_length_; ++d) {
                 int idx = (r*x_length_*z_length_)+(c*z_length_)+d;
-                Ocean.mutable_map()->add_row(grid_[idx].speed);
-                std::cout << "You Are There: " << grid_[idx].speed << std::endl;
+                Ocean.mutable_map()->add_row(grid_[idx]);
+                std::cout << "(Depth,Speed) : (" << (d * z_resolution_) << ", " << grid_[idx] << ")" << std::endl;
             }
         }
     }
