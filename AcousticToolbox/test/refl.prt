@@ -1,0 +1,29 @@
+ _________________________________________________
+
+ BOUNCE- Refl. coef. test problem                                                
+ Frequency =   50.00    Hz
+ NMedia    =   1
+
+
+     N2-Linear approximation to SSP
+     Attenuation units: dB/wavelength
+     VACUUM
+
+
+   z (m)     alphaR (m/s)   betaR  rho (g/cm^3)  alphaI     betaI
+
+
+       ( # mesh points =   100  RMS rough =   0.00     )
+      0.00      1600.00    400.00     1.80       0.2000    0.5000
+     20.00      1600.00    400.00     1.80       0.2000    0.5000
+
+                                 ( RMS rough =   0.00     )
+     ACOUSTO-ELASTIC half-space
+     20.00      1800.00    600.00     2.00       0.1000    0.2000
+
+ cLow =   1400.0    m/s      cHigh =   19000.    m/s
+ RMax =    10.000000000000000     
+ Writing internal refl. coeff. table
+ NkTab =          330
+
+ Reference sound speed =    1500.0000000000000     

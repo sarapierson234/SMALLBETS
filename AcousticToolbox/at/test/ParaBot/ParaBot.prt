@@ -1,0 +1,179 @@
+ BELLHOP/BELLHOP3D
+
+ BELLHOP- Parabolic bottom profile                                               
+ frequency =   10.00     Hz
+
+ Dummy parameter NMedia =            1
+
+     C-linear approximation to SSP
+     Attenuation units: dB/wavelength
+     Altimetry file selected
+     VACUUM
+
+ Depth =    5100.00 m
+
+ Sound speed profile:
+   z (m)     alphaR (m/s)   betaR  rho (g/cm^3)  alphaI     betaI
+
+  -5100.00      1500.00      0.00     1.00       0.0000    0.0000
+   5100.00      1500.00      0.00     1.00       0.0000    0.0000
+
+                                 ( RMS roughness =   0.00     )
+     Bathymetry file selected
+     ACOUSTO-ELASTIC half-space
+   5100.00      5000.00      0.00     1.00       0.0000    0.0000
+
+ __________________________________________________________________________
+
+
+ Number of source   depths =            1
+ Source depths (m)
+   0.00000    
+
+ Number of receiver depths =          501
+ Receiver depths (m)
+   0.00000       10.0000       20.0000       30.0000       40.0000    
+   50.0000       60.0000       70.0000       80.0000       90.0000    
+   100.000       110.000       120.000       130.000       140.000    
+   150.000       160.000       170.000       180.000       190.000    
+   200.000    
+  ...    5000.00000    
+
+ Number of receiver ranges =         1001
+ Receiver ranges (km)
+   0.00000      0.200000E-01  0.400000E-01  0.600000E-01  0.800000E-01
+  0.100000      0.120000      0.140000      0.160000      0.180000    
+  0.200000      0.220000      0.240000      0.260000      0.280000    
+  0.300000      0.320000      0.340000      0.360000      0.380000    
+  0.400000    
+  ...    20.0000000    
+
+ Ray trace run
+ Geometric hat beams in Cartesian coordinates
+ Point source (cylindrical coordinates)
+ Rectilinear receiver grid: Receivers at rr( : ) x rd( : )
+
+ Number of beams in elevation   =          201
+ Beam take-off angles (degrees)
+  -89.0000      -88.1100      -87.2200      -86.3300      -85.4400    
+  -84.5500      -83.6600      -82.7700      -81.8800      -80.9900    
+  -80.1000      -79.2100      -78.3200      -77.4300      -76.5400    
+  -75.6500      -74.7600      -73.8700      -72.9800      -72.0900    
+  -71.2000    
+  ...    89.000000000000000     
+
+ __________________________________________________________________________
+
+
+ Step length,      deltas =    0.0000000000000000      m
+
+ Maximum ray depth, Box%z =    5100.0000000000000      m
+ Maximum ray range, Box%r =    25100.000000000000      m
+
+ *********************************
+ Using top-altimetry file
+ Curvilinear Interpolation
+ Number of altimetry points        1001
+
+  Range (km)  Depth (m)
+ -0.250      -0.00    
+ -0.250      -5.00    
+ -0.250      -10.0    
+ -0.250      -15.0    
+ -0.250      -20.0    
+ -0.249      -25.0    
+ -0.249      -30.0    
+ -0.249      -35.0    
+ -0.248      -40.0    
+ -0.248      -45.0    
+ -0.247      -50.0    
+ -0.247      -55.0    
+ -0.246      -60.0    
+ -0.246      -65.0    
+ -0.245      -70.0    
+ -0.244      -75.0    
+ -0.244      -80.0    
+ -0.243      -85.0    
+ -0.242      -90.0    
+ *********************************
+ Using bottom-bathymetry file
+ Curvilinear Interpolation
+ Number of bathymetry points        1001
+
+ Short format (bathymetry only)
+  Range (km)  Depth (m)
+ -0.250       0.00    
+ -0.250       5.00    
+ -0.250       10.0    
+ -0.250       15.0    
+ -0.250       20.0    
+ -0.249       25.0    
+ -0.249       30.0    
+ -0.249       35.0    
+ -0.248       40.0    
+ -0.248       45.0    
+ -0.247       50.0    
+ -0.247       55.0    
+ -0.246       60.0    
+ -0.246       65.0    
+ -0.245       70.0    
+ -0.244       75.0    
+ -0.244       80.0    
+ -0.243       85.0    
+ -0.242       90.0    
+
+ Step length,      deltas =    1020.0000000000000      m (automatically selected)
+
+Tracing beam       1    -89.00
+Tracing beam       5    -85.44
+Tracing beam       9    -81.88
+Tracing beam      13    -78.32
+Tracing beam      17    -74.76
+Tracing beam      21    -71.20
+Tracing beam      25    -67.64
+Tracing beam      29    -64.08
+Tracing beam      33    -60.52
+Tracing beam      37    -56.96
+Tracing beam      41    -53.40
+Tracing beam      45    -49.84
+Tracing beam      49    -46.28
+Tracing beam      53    -42.72
+Tracing beam      57    -39.16
+Tracing beam      61    -35.60
+Tracing beam      65    -32.04
+Tracing beam      69    -28.48
+Tracing beam      73    -24.92
+Tracing beam      77    -21.36
+Tracing beam      81    -17.80
+Tracing beam      85    -14.24
+Tracing beam      89    -10.68
+Tracing beam      93     -7.12
+Tracing beam      97     -3.56
+Tracing beam     101      0.00
+Tracing beam     105      3.56
+Tracing beam     109      7.12
+Tracing beam     113     10.68
+Tracing beam     117     14.24
+Tracing beam     121     17.80
+Tracing beam     125     21.36
+Tracing beam     129     24.92
+Tracing beam     133     28.48
+Tracing beam     137     32.04
+Tracing beam     141     35.60
+Tracing beam     145     39.16
+Tracing beam     149     42.72
+Tracing beam     153     46.28
+Tracing beam     157     49.84
+Tracing beam     161     53.40
+Tracing beam     165     56.96
+Tracing beam     169     60.52
+Tracing beam     173     64.08
+Tracing beam     177     67.64
+Tracing beam     181     71.20
+Tracing beam     185     74.76
+Tracing beam     189     78.32
+Tracing beam     193     81.88
+Tracing beam     197     85.44
+Tracing beam     201     89.00
+
+ CPU Time =        1.14    s
