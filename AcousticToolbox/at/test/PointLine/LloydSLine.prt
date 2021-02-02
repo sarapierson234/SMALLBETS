@@ -1,0 +1,43 @@
+ _________________________________________________
+
+ SCOOTER-Lloyd mirror, line source                                               
+ Frequency =   5.000    Hz
+ NMedia    =   1
+
+
+     N2-Linear approximation to SSP
+     Attenuation units: dB/mkHz
+     VACUUM
+
+
+   z (m)     alphaR (m/s)   betaR  rho (g/cm^3)  alphaI     betaI
+
+
+       ( # mesh points =  1500  RMS rough =   0.00     )
+      0.00      1500.00      0.00     1.00       0.0000    0.0000
+   5000.00      1500.00      0.00     1.00       0.0000    0.0000
+
+                                 ( RMS rough =   0.00     )
+     ACOUSTO-ELASTIC half-space
+   5000.00      1500.00      0.00     1.00       0.0000    0.0000
+
+ cLow =   1000.0    m/s      cHigh =  0.10000E+10m/s
+ RMax =    30.000000000000000      km
+
+ __________________________________________________________________________
+
+
+ Number of source   depths =            1
+ Source depths (m)
+   3000.00    
+
+ Number of receiver depths =          201
+ Receiver depths (m)
+   0.00000       25.0000       50.0000       75.0000       100.000    
+   125.000       150.000       175.000       200.000       225.000    
+   250.000       275.000       300.000       325.000       350.000    
+   375.000       400.000       425.000       450.000       475.000    
+   500.000    
+  ...    5000.00000    
+ Nk =          599
+ CPU Time:     0.46875E-01s   ---cumulative
