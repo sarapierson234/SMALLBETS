@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.gtri.scrimmage";
+
+import "scrimmage/proto/Vector3d.proto";
+
+package smallbets.msgs;
+
+message vec1D {
+        repeated double row = 1;
+}
+
+message Ocean {
+        double x_length = 1;
+        double y_length = 2;
+        double z_length = 3;
+        double x_resolution = 4;
+        double y_resolution = 5;
+        double z_resolution = 6;
+        vec1D map = 7;
+}
