@@ -1,6 +1,0 @@
-'''
-Description:
-
-Author: Hunter Akins
-
-'''
