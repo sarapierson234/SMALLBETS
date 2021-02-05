@@ -1,0 +1,186 @@
+ BELLHOP/BELLHOP3D
+
+ BELLHOP- Ellipse, Gaussian beams                                                
+ frequency =   10.00     Hz
+
+ Dummy parameter NMedia =            1
+
+     C-linear approximation to SSP
+     Attenuation units: dB/mkHz
+     Altimetry file selected
+     VACUUM
+
+ Depth =   11000.00 m
+
+ Sound speed profile:
+   z (m)     alphaR (m/s)   betaR  rho (g/cm^3)  alphaI     betaI
+
+ -11000.00      1500.00      0.00     1.00       0.0000    0.0000
+  11000.00      1500.00      0.00     1.00       0.0000    0.0000
+
+                                 ( RMS roughness =   0.00     )
+     Bathymetry file selected
+     VACUUM
+
+ __________________________________________________________________________
+
+
+ Number of source   depths =            1
+ Source depths (m)
+   0.00000    
+
+ Number of receiver depths =          421
+ Receiver depths (m)
+  -11000.0      -10947.6      -10895.2      -10842.9      -10790.5    
+  -10738.1      -10685.7      -10633.3      -10581.0      -10528.6    
+  -10476.2      -10423.8      -10371.4      -10319.0      -10266.7    
+  -10214.3      -10161.9      -10109.5      -10057.1      -10004.8    
+  -9952.38    
+  ...    11000.0000    
+
+ Number of receiver ranges =          501
+ Receiver ranges (km)
+   0.00000      0.710000E-01  0.142000      0.213000      0.284000    
+  0.355000      0.426000      0.497000      0.568000      0.639000    
+  0.710000      0.781000      0.852000      0.923000      0.994000    
+   1.06500       1.13600       1.20700       1.27800       1.34900    
+   1.42000    
+  ...    35.5000000    
+
+ Coherent TL calculation
+ Geometric gaussian beams in Cartesian coordinates
+ Point source (cylindrical coordinates)
+ Rectilinear receiver grid: Receivers at ( rr( ir ), rd( ir ) ) )
+
+ Number of beams in elevation   =          720
+ Beam take-off angles (degrees)
+  -80.0000      -79.7775      -79.5549      -79.3324      -79.1099    
+  -78.8873      -78.6648      -78.4423      -78.2197      -77.9972    
+  -77.7747      -77.5522      -77.3296      -77.1071      -76.8846    
+  -76.6620      -76.4395      -76.2170      -75.9944      -75.7719    
+  -75.5494    
+  ...    80.000000000000000     
+
+ __________________________________________________________________________
+
+
+ Step length,      deltas =    0.0000000000000000      m
+
+ Maximum ray depth, Box%z =    11110.000000000000      m
+ Maximum ray range, Box%r =    35110.000000000000      m
+ No beam shift in effect
+
+ *********************************
+ Using top-altimetry file
+ Curvilinear Interpolation
+ Number of altimetry points        1000
+
+  Range (km)  Depth (m)
+   0.00     -0.500E+04
+  0.303E-01 -0.503E+04
+  0.606E-01 -0.505E+04
+  0.911E-01 -0.508E+04
+  0.122     -0.510E+04
+  0.152     -0.513E+04
+  0.183     -0.516E+04
+  0.214     -0.518E+04
+  0.245     -0.521E+04
+  0.276     -0.523E+04
+  0.307     -0.526E+04
+  0.338     -0.528E+04
+  0.369     -0.531E+04
+  0.400     -0.533E+04
+  0.431     -0.536E+04
+  0.463     -0.538E+04
+  0.494     -0.541E+04
+  0.526     -0.543E+04
+  0.558     -0.546E+04
+ *********************************
+ Using bottom-bathymetry file
+ Curvilinear Interpolation
+ Number of bathymetry points        1000
+
+ Short format (bathymetry only)
+  Range (km)  Depth (m)
+   0.00      0.500E+04
+  0.303E-01  0.503E+04
+  0.606E-01  0.505E+04
+  0.911E-01  0.508E+04
+  0.122      0.510E+04
+  0.152      0.513E+04
+  0.183      0.516E+04
+  0.214      0.518E+04
+  0.245      0.521E+04
+  0.276      0.523E+04
+  0.307      0.526E+04
+  0.338      0.528E+04
+  0.369      0.531E+04
+  0.400      0.533E+04
+  0.431      0.536E+04
+  0.463      0.538E+04
+  0.494      0.541E+04
+  0.526      0.543E+04
+  0.558      0.546E+04
+
+ Step length,      deltas =    2200.0000000000000      m (automatically selected)
+
+Tracing beam       1    -80.00
+
+ Geometric Gaussian beams                
+ halfwidth  =    12293.425862804343     
+ epsilonOpt =  (  0.0000000000000000     ,  4747836181.1548080     )
+ EpsMult    =    1.0000000000000000     
+
+Tracing beam      15    -76.88
+Tracing beam      29    -73.77
+Tracing beam      43    -70.65
+Tracing beam      57    -67.54
+Tracing beam      71    -64.42
+Tracing beam      85    -61.31
+Tracing beam      99    -58.19
+Tracing beam     113    -55.08
+Tracing beam     127    -51.96
+Tracing beam     141    -48.85
+Tracing beam     155    -45.73
+Tracing beam     169    -42.61
+Tracing beam     183    -39.50
+Tracing beam     197    -36.38
+Tracing beam     211    -33.27
+Tracing beam     225    -30.15
+Tracing beam     239    -27.04
+Tracing beam     253    -23.92
+Tracing beam     267    -20.81
+Tracing beam     281    -17.69
+Tracing beam     295    -14.58
+Tracing beam     309    -11.46
+Tracing beam     323     -8.34
+Tracing beam     337     -5.23
+Tracing beam     351     -2.11
+Tracing beam     365      1.00
+Tracing beam     379      4.12
+Tracing beam     393      7.23
+Tracing beam     407     10.35
+Tracing beam     421     13.46
+Tracing beam     435     16.58
+Tracing beam     449     19.69
+Tracing beam     463     22.81
+Tracing beam     477     25.92
+Tracing beam     491     29.04
+Tracing beam     505     32.16
+Tracing beam     519     35.27
+Tracing beam     533     38.39
+Tracing beam     547     41.50
+Tracing beam     561     44.62
+Tracing beam     575     47.73
+Tracing beam     589     50.85
+Tracing beam     603     53.96
+Tracing beam     617     57.08
+Tracing beam     631     60.19
+Tracing beam     645     63.31
+Tracing beam     659     66.43
+Tracing beam     673     69.54
+Tracing beam     687     72.66
+Tracing beam     701     75.77
+Tracing beam     715     78.89
+
+ CPU Time =        2.09    s

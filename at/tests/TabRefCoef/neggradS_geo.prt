@@ -1,0 +1,43 @@
+ _________________________________________________
+
+ SCOOTER-neggrad geo                                                             
+ Frequency =   500.0    Hz
+ NMedia    =   1
+
+
+     C-Linear approximation to SSP
+     Attenuation units: dB/wavelength
+     VACUUM
+
+
+   z (m)     alphaR (m/s)   betaR  rho (g/cm^3)  alphaI     betaI
+
+
+       ( # mesh points =  1000  RMS rough =   0.00     )
+      0.00      1545.72      0.00     1.00       0.0000    0.0000
+    100.00      1536.42      0.00     1.00       0.0000    0.0000
+
+                                 ( RMS rough =   0.00     )
+     ACOUSTO-ELASTIC half-space
+    100.00      1546.80      0.00     1.62       0.2140    0.0000
+
+ cLow =   1400.0    m/s      cHigh =   3000.0    m/s
+ RMax =    50.000000000000000      km
+
+ __________________________________________________________________________
+
+
+ Number of source   depths =            1
+ Source depths (m)
+   10.0000    
+
+ Number of receiver depths =          100
+ Receiver depths (m)
+   1.00000       2.00000       3.00000       4.00000       5.00000    
+   6.00000       7.00000       8.00000       9.00000       10.0000    
+   11.0000       12.0000       13.0000       14.0000       15.0000    
+   16.0000       17.0000       18.0000       19.0000       20.0000    
+   21.0000    
+  ...    100.000000    
+ Nk =        38095
+ CPU Time:      1.2969    s   ---cumulative

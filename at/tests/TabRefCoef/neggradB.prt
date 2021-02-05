@@ -1,0 +1,30 @@
+ _________________________________________________
+
+ BOUNCE- neggrad (Bounce)                                                        
+ Frequency =   500.0    Hz
+ NMedia    =   1
+
+
+     C-Linear approximation to SSP
+     Attenuation units: dB/wavelength
+
+
+   z (m)     alphaR (m/s)   betaR  rho (g/cm^3)  alphaI     betaI
+
+     ACOUSTO-ELASTIC half-space
+      0.00      1536.42      0.00     1.00       0.0000    0.0000
+
+       ( # mesh points = 10000  RMS rough =   0.00     )
+      0.00      1546.80      0.00     1.62       0.2140    0.0000
+    100.00      1546.80      0.00     1.62       0.2140    0.0000
+
+                                 ( RMS rough =   0.00     )
+     ACOUSTO-ELASTIC half-space
+    100.00      1546.80      0.00     1.62       0.2140    0.0000
+
+ cLow =   1536.4    m/s      cHigh =   2000.0    m/s
+ RMax =    20.000000000000000     
+ Writing internal refl. coeff. table
+ NkTab =         1508
+
+ Reference sound speed =    1536.4179999999999     

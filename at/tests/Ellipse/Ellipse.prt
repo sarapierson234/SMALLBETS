@@ -1,0 +1,199 @@
+ BELLHOP/BELLHOP3D
+
+ BELLHOP- Ellipse                                                                
+ frequency =   100.0     Hz
+
+ Dummy parameter NMedia =            1
+
+     C-linear approximation to SSP
+     Attenuation units: dB/mkHz
+     Altimetry file selected
+     VACUUM
+
+ Depth =   11000.00 m
+
+ Sound speed profile:
+   z (m)     alphaR (m/s)   betaR  rho (g/cm^3)  alphaI     betaI
+
+ -11000.00      1500.00      0.00     1.00       0.0000    0.0000
+  11000.00      1500.00      0.00     1.00       0.0000    0.0000
+
+                                 ( RMS roughness =   0.00     )
+     Bathymetry file selected
+     VACUUM
+
+ __________________________________________________________________________
+
+
+ Number of source   depths =            1
+ Source depths (m)
+   0.00000    
+
+ Number of receiver depths =          421
+ Receiver depths (m)
+  -11000.0      -10947.6      -10895.2      -10842.9      -10790.5    
+  -10738.1      -10685.7      -10633.3      -10581.0      -10528.6    
+  -10476.2      -10423.8      -10371.4      -10319.0      -10266.7    
+  -10214.3      -10161.9      -10109.5      -10057.1      -10004.8    
+  -9952.38    
+  ...    11000.0000    
+
+ Number of receiver ranges =          501
+ Receiver ranges (km)
+   0.00000      0.710000E-01  0.142000      0.213000      0.284000    
+  0.355000      0.426000      0.497000      0.568000      0.639000    
+  0.710000      0.781000      0.852000      0.923000      0.994000    
+   1.06500       1.13600       1.20700       1.27800       1.34900    
+   1.42000    
+  ...    35.5000000    
+
+ Ray trace run
+ Geometric gaussian beams in Cartesian coordinates
+ Point source (cylindrical coordinates)
+ Rectilinear receiver grid: Receivers at ( rr( ir ), rd( ir ) ) )
+
+ Number of beams in elevation   =           72
+ Beam take-off angles (degrees)
+  -80.0000      -77.7465      -75.4930      -73.2394      -70.9859    
+  -68.7324      -66.4789      -64.2254      -61.9718      -59.7183    
+  -57.4648      -55.2113      -52.9577      -50.7042      -48.4507    
+  -46.1972      -43.9437      -41.6901      -39.4366      -37.1831    
+  -34.9296    
+  ...    80.000000000000000     
+
+ __________________________________________________________________________
+
+
+ Step length,      deltas =    0.0000000000000000      m
+
+ Maximum ray depth, Box%z =    11110.000000000000      m
+ Maximum ray range, Box%r =    35110.000000000000      m
+
+ *********************************
+ Using top-altimetry file
+ Curvilinear Interpolation
+ Number of altimetry points        1000
+
+  Range (km)  Depth (m)
+   0.00     -0.500E+04
+  0.303E-01 -0.503E+04
+  0.606E-01 -0.505E+04
+  0.911E-01 -0.508E+04
+  0.122     -0.510E+04
+  0.152     -0.513E+04
+  0.183     -0.516E+04
+  0.214     -0.518E+04
+  0.245     -0.521E+04
+  0.276     -0.523E+04
+  0.307     -0.526E+04
+  0.338     -0.528E+04
+  0.369     -0.531E+04
+  0.400     -0.533E+04
+  0.431     -0.536E+04
+  0.463     -0.538E+04
+  0.494     -0.541E+04
+  0.526     -0.543E+04
+  0.558     -0.546E+04
+ *********************************
+ Using bottom-bathymetry file
+ Curvilinear Interpolation
+ Number of bathymetry points        1000
+
+ Short format (bathymetry only)
+  Range (km)  Depth (m)
+   0.00      0.500E+04
+  0.303E-01  0.503E+04
+  0.606E-01  0.505E+04
+  0.911E-01  0.508E+04
+  0.122      0.510E+04
+  0.152      0.513E+04
+  0.183      0.516E+04
+  0.214      0.518E+04
+  0.245      0.521E+04
+  0.276      0.523E+04
+  0.307      0.526E+04
+  0.338      0.528E+04
+  0.369      0.531E+04
+  0.400      0.533E+04
+  0.431      0.536E+04
+  0.463      0.538E+04
+  0.494      0.541E+04
+  0.526      0.543E+04
+  0.558      0.546E+04
+
+ Step length,      deltas =    2200.0000000000000      m (automatically selected)
+
+Tracing beam       1    -80.00
+Tracing beam       2    -77.75
+Tracing beam       3    -75.49
+Tracing beam       4    -73.24
+Tracing beam       5    -70.99
+Tracing beam       6    -68.73
+Tracing beam       7    -66.48
+Tracing beam       8    -64.23
+Tracing beam       9    -61.97
+Tracing beam      10    -59.72
+Tracing beam      11    -57.46
+Tracing beam      12    -55.21
+Tracing beam      13    -52.96
+Tracing beam      14    -50.70
+Tracing beam      15    -48.45
+Tracing beam      16    -46.20
+Tracing beam      17    -43.94
+Tracing beam      18    -41.69
+Tracing beam      19    -39.44
+Tracing beam      20    -37.18
+Tracing beam      21    -34.93
+Tracing beam      22    -32.68
+Tracing beam      23    -30.42
+Tracing beam      24    -28.17
+Tracing beam      25    -25.92
+Tracing beam      26    -23.66
+Tracing beam      27    -21.41
+Tracing beam      28    -19.15
+Tracing beam      29    -16.90
+Tracing beam      30    -14.65
+Tracing beam      31    -12.39
+Tracing beam      32    -10.14
+Tracing beam      33     -7.89
+Tracing beam      34     -5.63
+Tracing beam      35     -3.38
+Tracing beam      36     -1.13
+Tracing beam      37      1.13
+Tracing beam      38      3.38
+Tracing beam      39      5.63
+Tracing beam      40      7.89
+Tracing beam      41     10.14
+Tracing beam      42     12.39
+Tracing beam      43     14.65
+Tracing beam      44     16.90
+Tracing beam      45     19.15
+Tracing beam      46     21.41
+Tracing beam      47     23.66
+Tracing beam      48     25.92
+Tracing beam      49     28.17
+Tracing beam      50     30.42
+Tracing beam      51     32.68
+Tracing beam      52     34.93
+Tracing beam      53     37.18
+Tracing beam      54     39.44
+Tracing beam      55     41.69
+Tracing beam      56     43.94
+Tracing beam      57     46.20
+Tracing beam      58     48.45
+Tracing beam      59     50.70
+Tracing beam      60     52.96
+Tracing beam      61     55.21
+Tracing beam      62     57.46
+Tracing beam      63     59.72
+Tracing beam      64     61.97
+Tracing beam      65     64.23
+Tracing beam      66     66.48
+Tracing beam      67     68.73
+Tracing beam      68     70.99
+Tracing beam      69     73.24
+Tracing beam      70     75.49
+Tracing beam      71     77.75
+Tracing beam      72     80.00
+
+ CPU Time =       0.438    s

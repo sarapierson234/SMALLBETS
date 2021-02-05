@@ -1,0 +1,44 @@
+ _________________________________________________
+
+ SCOOTER-Shaded point source in free space                                       
+ Frequency =   100.0    Hz
+ NMedia    =   1
+
+
+     C-Linear approximation to SSP
+     Attenuation units: dB/mkHz
+
+
+   z (m)     alphaR (m/s)   betaR  rho (g/cm^3)  alphaI     betaI
+
+     ACOUSTO-ELASTIC half-space
+      0.00      1500.00      0.00     1.00       0.0000    0.0000
+
+       ( # mesh points = 10000  RMS rough =   0.00     )
+  -5000.00      1500.00      0.00     1.00       0.0000    0.0000
+   5000.00      1500.00      0.00     1.00       0.0000    0.0000
+
+                                 ( RMS rough =   0.00     )
+     ACOUSTO-ELASTIC half-space
+      0.00      1500.00      0.00     1.00       0.0000    0.0000
+
+ cLow =   1400.0    m/s      cHigh =  0.10000E+21m/s
+ RMax =    40.000000000000000      km
+
+ __________________________________________________________________________
+
+
+ Number of source   depths =            1
+ Source depths (m)
+   0.00000    
+
+ Number of receiver depths =          501
+ Receiver depths (m)
+  -5000.00      -4980.00      -4960.00      -4940.00      -4920.00    
+  -4900.00      -4880.00      -4860.00      -4840.00      -4820.00    
+  -4800.00      -4780.00      -4760.00      -4740.00      -4720.00    
+  -4700.00      -4680.00      -4660.00      -4640.00      -4620.00    
+  -4600.00    
+  ...    5000.00000    
+ Nk =        11428
+ CPU Time:      4.0781    s   ---cumulative

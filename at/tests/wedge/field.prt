@@ -1,0 +1,102 @@
+
+ __________________________________________________________________________
+ Running FIELD
+ Sums modes, producing pressure
+
+ Point source
+ Range-dependent calculation
+ Coupled modes
+
+ Number of profiles   =           51
+   0.00000      0.800000E-01  0.160000      0.240000      0.320000    
+  0.400000      0.480000      0.560000      0.640000      0.720000    
+  0.800000      0.880000      0.960000       1.04000       1.12000    
+   1.20000       1.28000       1.36000       1.44000       1.52000    
+   1.60000    
+  ...    4.00000000    
+
+ Number of receiver ranges =          501
+ Receiver ranges (km)
+   0.00000      0.800000E-02  0.160000E-01  0.240000E-01  0.320000E-01
+  0.400000E-01  0.480000E-01  0.560000E-01  0.640000E-01  0.720000E-01
+  0.800000E-01  0.880000E-01  0.960000E-01  0.104000      0.112000    
+  0.120000      0.128000      0.136000      0.144000      0.152000    
+  0.160000    
+  ...    4.00000000    
+
+ __________________________________________________________________________
+
+
+ Number of source   depths =            1
+ Source depths (m)
+   100.000    
+
+ Number of receiver depths =          201
+ Receiver depths (m)
+   0.00000       1.00000       2.00000       3.00000       4.00000    
+   5.00000       6.00000       7.00000       8.00000       9.00000    
+   10.0000       11.0000       12.0000       13.0000       14.0000    
+   15.0000       16.0000       17.0000       18.0000       19.0000    
+   20.0000    
+  ...    200.000000    
+
+ Number of receiver range offsets =          201
+ Receiver range offsets (km)
+   0.00000       0.00000       0.00000       0.00000       0.00000    
+   0.00000       0.00000       0.00000       0.00000       0.00000    
+   0.00000       0.00000       0.00000       0.00000       0.00000    
+   0.00000       0.00000       0.00000       0.00000       0.00000    
+   0.00000    
+  ...    0.00000000    
+
+ New profile read at range   4.00000028E-02           2  #modes =           59
+ New profile read at range  0.120000005               3  #modes =           59
+ New profile read at range  0.200000003               4  #modes =           59
+ New profile read at range  0.288000017               5  #modes =           59
+ New profile read at range  0.360000014               6  #modes =           59
+ New profile read at range  0.440000027               7  #modes =           59
+ New profile read at range  0.520000041               8  #modes =           59
+ New profile read at range  0.608000040               9  #modes =           59
+ New profile read at range  0.680000007              10  #modes =           59
+ New profile read at range  0.760000050              11  #modes =           59
+ New profile read at range  0.840000033              12  #modes =           59
+ New profile read at range  0.920000017              13  #modes =           59
+ New profile read at range   1.00800002              14  #modes =           59
+ New profile read at range   1.08000004              15  #modes =           59
+ New profile read at range   1.16000009              16  #modes =           59
+ New profile read at range   1.24800003              17  #modes =           59
+ New profile read at range   1.32000005              18  #modes =           58
+ New profile read at range   1.40000010              19  #modes =           58
+ New profile read at range   1.48800004              20  #modes =           58
+ New profile read at range   1.56000018              21  #modes =           58
+ New profile read at range   1.64000010              22  #modes =           59
+ New profile read at range   1.72800004              23  #modes =           59
+ New profile read at range   1.80000007              24  #modes =           58
+ New profile read at range   1.88000011              25  #modes =           58
+ New profile read at range   1.96800005              26  #modes =           58
+ New profile read at range   2.04000020              27  #modes =           58
+ New profile read at range   2.12000036              28  #modes =           58
+ New profile read at range   2.20000005              29  #modes =           58
+ New profile read at range   2.28000021              30  #modes =           58
+ New profile read at range   2.36000013              31  #modes =           58
+ New profile read at range   2.44800019              32  #modes =           58
+ New profile read at range   2.52000022              33  #modes =           58
+ New profile read at range   2.60000014              34  #modes =           58
+ New profile read at range   2.68000007              35  #modes =           58
+ New profile read at range   2.76000023              36  #modes =           58
+ New profile read at range   2.84000015              37  #modes =           58
+ New profile read at range   2.92800021              38  #modes =           58
+ New profile read at range   3.00000024              39  #modes =           58
+ New profile read at range   3.08000016              40  #modes =           58
+ New profile read at range   3.16000009              41  #modes =           58
+ New profile read at range   3.24000025              42  #modes =           58
+ New profile read at range   3.32000017              43  #modes =           58
+ New profile read at range   3.40000010              44  #modes =           58
+ New profile read at range   3.48000026              45  #modes =           58
+ New profile read at range   3.56000018              46  #modes =           58
+ New profile read at range   3.64000010              47  #modes =           58
+ New profile read at range   3.72000027              48  #modes =           58
+ New profile read at range   3.80000019              49  #modes =           58
+ New profile read at range   3.88000011              50  #modes =           58
+ New profile read at range   3.96000028              51  #modes =           58
+ Field completed successfully

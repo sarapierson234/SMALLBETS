@@ -1,0 +1,200 @@
+ _________________________________________________
+
+ SPARC-  Isovelocity problem, (0.0, 0.0)                                         
+ Frequency =   100.0    Hz
+ NMedia    =   1
+
+
+     N2-Linear approximation to SSP
+     Attenuation units: dB/wavelength
+     VACUUM
+
+
+   z (m)     alphaR (m/s)   betaR  rho (g/cm^3)  alphaI     betaI
+
+
+       ( # mesh points =   400  RMS rough =   0.00     )
+   -200.00      1500.00      0.00     1.00       0.0000    0.0000
+    200.00      1500.00      0.00     1.00       0.0000    0.0000
+
+                                 ( RMS rough =   0.00     )
+     VACUUM
+
+ cLow =   1000.0    m/s      cHigh =  0.10000E+08m/s
+ RMax =   0.45000000000000001     
+
+ __________________________________________________________________________
+
+
+ Number of source   depths =            1
+ Source depths (m)
+   0.00000    
+
+ Number of receiver depths =           10
+ Receiver depths (m)
+   0.00000       10.0000       20.0000       30.0000       40.0000    
+   50.0000       60.0000       70.0000       80.0000       90.0000    
+ fMin, fMax =    0.00000000       300.000000    
+ Nk =          135
+ Pseudo-gaussian pulse
+
+ Number of receiver ranges =            1
+ Receiver ranges (km)
+  0.500000E-01
+
+ Number of output times =          501
+ Times (s)
+   0.00000      0.200000E-03  0.400000E-03  0.600000E-03  0.800000E-03
+  0.100000E-02  0.120000E-02  0.140000E-02  0.160000E-02  0.180000E-02
+  0.200000E-02  0.220000E-02  0.240000E-02  0.260000E-02  0.280000E-02
+  0.300000E-02  0.320000E-02  0.340000E-02  0.360000E-02  0.380000E-02
+  0.400000E-02  0.420000E-02  0.440000E-02  0.460000E-02  0.480000E-02
+  0.500000E-02  0.520000E-02  0.540000E-02  0.560000E-02  0.580000E-02
+  0.600000E-02  0.620000E-02  0.640000E-02  0.660000E-02  0.680000E-02
+  0.700000E-02  0.720000E-02  0.740000E-02  0.760000E-02  0.780000E-02
+  0.800000E-02  0.820000E-02  0.840000E-02  0.860000E-02  0.880000E-02
+  0.900000E-02  0.920000E-02  0.940000E-02  0.960000E-02  0.980000E-02
+  0.100000E-01
+ tStart =  -0.100000001    
+ tMult  =   0.999000013    
+ alpha  =    0.00000000    
+ beta   =    0.00000000    
+ V      =    0.00000000    
+ Time step =    4.84666321E-04
+ Estimated fl. pt. ops (billions) =   0.446781635    
+ Ik, Nk           1         135
+ Ik, Nk           2         135
+ Ik, Nk           3         135
+ Ik, Nk           4         135
+ Ik, Nk           5         135
+ Ik, Nk           6         135
+ Ik, Nk           7         135
+ Ik, Nk           8         135
+ Ik, Nk           9         135
+ Ik, Nk          10         135
+ Ik, Nk          11         135
+ Ik, Nk          12         135
+ Ik, Nk          13         135
+ Ik, Nk          14         135
+ Ik, Nk          15         135
+ Ik, Nk          16         135
+ Ik, Nk          17         135
+ Ik, Nk          18         135
+ Ik, Nk          19         135
+ Ik, Nk          20         135
+ Ik, Nk          21         135
+ Ik, Nk          22         135
+ Ik, Nk          23         135
+ Ik, Nk          24         135
+ Ik, Nk          25         135
+ Ik, Nk          26         135
+ Ik, Nk          27         135
+ Ik, Nk          28         135
+ Ik, Nk          29         135
+ Ik, Nk          30         135
+ Ik, Nk          31         135
+ Ik, Nk          32         135
+ Ik, Nk          33         135
+ Ik, Nk          34         135
+ Ik, Nk          35         135
+ Ik, Nk          36         135
+ Ik, Nk          37         135
+ Ik, Nk          38         135
+ Ik, Nk          39         135
+ Ik, Nk          40         135
+ Ik, Nk          41         135
+ Ik, Nk          42         135
+ Ik, Nk          43         135
+ Ik, Nk          44         135
+ Ik, Nk          45         135
+ Ik, Nk          46         135
+ Ik, Nk          47         135
+ Ik, Nk          48         135
+ Ik, Nk          49         135
+ Ik, Nk          50         135
+ Ik, Nk          51         135
+ Ik, Nk          52         135
+ Ik, Nk          53         135
+ Ik, Nk          54         135
+ Ik, Nk          55         135
+ Ik, Nk          56         135
+ Ik, Nk          57         135
+ Ik, Nk          58         135
+ Ik, Nk          59         135
+ Ik, Nk          60         135
+ Ik, Nk          61         135
+ Ik, Nk          62         135
+ Ik, Nk          63         135
+ Ik, Nk          64         135
+ Ik, Nk          65         135
+ Ik, Nk          66         135
+ Ik, Nk          67         135
+ Ik, Nk          68         135
+ Ik, Nk          69         135
+ Ik, Nk          70         135
+ Ik, Nk          71         135
+ Ik, Nk          72         135
+ Ik, Nk          73         135
+ Ik, Nk          74         135
+ Ik, Nk          75         135
+ Ik, Nk          76         135
+ Ik, Nk          77         135
+ Ik, Nk          78         135
+ Ik, Nk          79         135
+ Ik, Nk          80         135
+ Ik, Nk          81         135
+ Ik, Nk          82         135
+ Ik, Nk          83         135
+ Ik, Nk          84         135
+ Ik, Nk          85         135
+ Ik, Nk          86         135
+ Ik, Nk          87         135
+ Ik, Nk          88         135
+ Ik, Nk          89         135
+ Ik, Nk          90         135
+ Ik, Nk          91         135
+ Ik, Nk          92         135
+ Ik, Nk          93         135
+ Ik, Nk          94         135
+ Ik, Nk          95         135
+ Ik, Nk          96         135
+ Ik, Nk          97         135
+ Ik, Nk          98         135
+ Ik, Nk          99         135
+ Ik, Nk         100         135
+ Ik, Nk         101         135
+ Ik, Nk         102         135
+ Ik, Nk         103         135
+ Ik, Nk         104         135
+ Ik, Nk         105         135
+ Ik, Nk         106         135
+ Ik, Nk         107         135
+ Ik, Nk         108         135
+ Ik, Nk         109         135
+ Ik, Nk         110         135
+ Ik, Nk         111         135
+ Ik, Nk         112         135
+ Ik, Nk         113         135
+ Ik, Nk         114         135
+ Ik, Nk         115         135
+ Ik, Nk         116         135
+ Ik, Nk         117         135
+ Ik, Nk         118         135
+ Ik, Nk         119         135
+ Ik, Nk         120         135
+ Ik, Nk         121         135
+ Ik, Nk         122         135
+ Ik, Nk         123         135
+ Ik, Nk         124         135
+ Ik, Nk         125         135
+ Ik, Nk         126         135
+ Ik, Nk         127         135
+ Ik, Nk         128         135
+ Ik, Nk         129         135
+ Ik, Nk         130         135
+ Ik, Nk         131         135
+ Ik, Nk         132         135
+ Ik, Nk         133         135
+ Ik, Nk         134         135
+ Ik, Nk         135         135
+ CPU TIME:     0.30312    s
