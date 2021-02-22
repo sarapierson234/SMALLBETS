@@ -31,28 +31,18 @@
  */
 
 #include <smallbets/plugins/sensor/OceanParams2csv/OceanParams2csv.h>
-#include <scrimmage/plugins/interaction/TerrainGenerator/TerrainMap.h>
-#include <scrimmage/plugins/interaction/TerrainGenerator/TerrainGenerator.h>
-#include <smallbets/plugins/interaction/OceanParameters/OceanMap.h>
-#include <smallbets/plugins/interaction/OceanParameters/OceanParameters.h>
-
-
 #include <scrimmage/plugin_manager/RegisterPlugin.h>
 #include <scrimmage/entity/Contact.h>
 #include <scrimmage/entity/Entity.h>
+#include <scrimmage/pubsub/Message.h>
 #include <scrimmage/math/State.h>
 #include <scrimmage/common/CSV.h>
 #include <scrimmage/parse/ParseUtils.h>
 #include <scrimmage/parse/MissionParse.h>
+#include <scrimmage/proto/Shape.pb.h>
+#include <scrimmage/math/Quaternion.h>
 #include <scrimmage/pubsub/Subscriber.h>
-#include <scrimmage/msgs/Terrain.pb.h>
 #include <smallbets/msgs/Ocean.pb.h>
-
-#include <scrimmage/pubsub/Message.h>
-#include <scrimmage/proto/State.pb.h>
-
-#include <iostream>
-#include <limits>
 
 #include <boost/optional.hpp>
 
@@ -63,6 +53,7 @@ using std::cout;
 using std::endl;
 
 namespace sc = scrimmage;
+namespace sp = scrimmage_proto;
 
 REGISTER_PLUGIN(scrimmage::Sensor,
                 scrimmage::sensor::OceanParams2csv,
@@ -76,16 +67,18 @@ OceanParams2csv::OceanParams2csv() {
 
 void OceanParams2csv::init(std::map<std::string, std::string> &params) {
     range_length = sc::get<double>("range_length", params, 50.0);
-
+    x_pos.resize(range_length);//Initialize Vector Length
+    y_pos.resize(range_length);//Initialize Vector Length
+    depth.resize(range_length);//Initialize Vector Length
     auto oceanParam_cb = [&] (auto &msg) {
-        paramNEW_ = std::make_shared<scrimmage::interaction::OceanMap>(msg->data);
+        paramNew_ = std::make_shared<smallbets::msgs::Ocean>(msg->data);
     };
     subscribe<smallbets::msgs::Ocean>("GlobalNetwork", "Ocean", oceanParam_cb);
-
-    auto terrain_map_cb = [&] (auto &msg) {
+    
+    /*auto terrain_map_cb = [&] (auto &msg) {
         map_ = std::make_shared<scrimmage::interaction::TerrainMap>(msg->data);
     };
-    subscribe<scrimmage_msgs::Terrain>("GlobalNetwork", "Terrain", terrain_map_cb);
+    subscribe<scrimmage_msgs::Terrain>("GlobalNetwork", "Terrain", terrain_map_cb);*/
 }
 
 bool OceanParams2csv::step() {
@@ -93,9 +86,9 @@ bool OceanParams2csv::step() {
     scrimmage::CSV csv;
     auto msg = std::make_shared<Message<ContactMap>>();//Create contact map of other UUVs
 
-    if (map_ == nullptr){std::cout << "Code is here" << std::endl;} return true;// Wait until we have received a valid terrain map
-    if (paramNEW_ == nullptr) return true;//// Wait until we have received a valid ocean params
-    std::cout << "Code is there" << std::endl;
+    //if (map_ == nullptr) return true;
+    std::cout << "Code is here" << std::endl;// Wait until we have received a valid terrain map
+    if (paramNew_ == nullptr) return true;//// Wait until we have received a valid ocean params
     // Need (x1,y1,z1) [position of parent]
     source_x = parent_->state_truth()->pos()(0);
     source_y = parent_->state_truth()->pos()(1);
@@ -118,14 +111,17 @@ bool OceanParams2csv::step() {
     // (x1 + (x2-x1)t, y1 + (y2 - y1)*t)
     // t 1/n [n number of points to output between vehicles]
     // then write csv file to grab the ocean params and depth at each (x_t, y_t, z_all)
+    boost::optional<double> height;
     for ( int idx_t = 0; idx_t < range_length; idx_t++ ) {
         x_pos[idx_t] = ( source_x + ( rcvr_x - source_x ) * ( idx_t + 1 ) / range_length );
         y_pos[idx_t] = ( source_y + ( rcvr_y - source_y ) * ( idx_t + 1 ) / range_length );
-        depth[idx_t] = *(map_->height_at(x_pos[idx_t],y_pos[idx_t]));
+        //height = map_->height_at(x_pos[idx_t],y_pos[idx_t]);
+        //depth[idx_t] = *height;
+        depth[idx_t] = 9999;
     }
 
     // Write the CSV file to the root log directory
-        std::string filename = ".scrimmage/logs/latest/OceanParam.csv";
+        std::string filename = "/home/buzz/.scrimmage/logs/latest/OceanParam.csv";
     // Print to csv file....
         // Create the file
         if (csv.read_csv(filename)) {

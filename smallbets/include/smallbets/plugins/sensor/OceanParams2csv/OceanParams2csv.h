@@ -37,13 +37,16 @@
 #include <scrimmage/entity/Entity.h>
 #include <scrimmage/entity/Contact.h>
 #include <scrimmage/pubsub/Publisher.h>
+#include <scrimmage/common/CSV.h>
 #include <scrimmage/plugins/interaction/TerrainGenerator/TerrainMap.h>
 #include <smallbets/plugins/interaction/OceanParameters/OceanMap.h>
+#include <scrimmage/msgs/Terrain.pb.h>
 
 #include <random>
 #include <vector>
 #include <map>
 #include <string>
+#include <memory>
 
 namespace scrimmage {
 namespace sensor {
@@ -65,8 +68,8 @@ class OceanParams2csv : public scrimmage::Sensor {
     std::vector<double> y_pos;
     std::vector<double> depth;
     double range_length = 20; //Number of range bins
-    std::shared_ptr<scrimmage::interaction::OceanMap> paramNEW_ = nullptr;
-    std::shared_ptr<scrimmage::interaction::TerrainMap> map_ = nullptr;
+    std::shared_ptr<smallbets::msgs::Ocean> paramNew_ = nullptr;
+    //std::shared_ptr<scrimmage::interaction::TerrainMap> map_ = nullptr;
  private:
 };
 } // namespace sensor
