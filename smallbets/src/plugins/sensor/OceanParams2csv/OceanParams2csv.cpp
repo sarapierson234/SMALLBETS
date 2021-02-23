@@ -66,19 +66,22 @@ OceanParams2csv::OceanParams2csv() {
 }
 
 void OceanParams2csv::init(std::map<std::string, std::string> &params) {
-    range_length = sc::get<double>("range_length", params, 50.0);
+    range_length = sc::get<double>("range_length", params, 50);
+    depth_length = sc::get<double>("depth_length", params, 50);
     x_pos.resize(range_length);//Initialize Vector Length
     y_pos.resize(range_length);//Initialize Vector Length
     depth.resize(range_length);//Initialize Vector Length
+    z_pos.resize(depth_length);//Initialize Vector Length
+    c_z.resize(depth_length);//Initialize Vector Length
     auto oceanParam_cb = [&] (auto &msg) {
-        paramNew_ = std::make_shared<smallbets::msgs::Ocean>(msg->data);
+        paramNew_ = std::make_shared<scrimmage::interaction::OceanMap>(msg->data);
     };
     subscribe<smallbets::msgs::Ocean>("GlobalNetwork", "Ocean", oceanParam_cb);
     
-    /*auto terrain_map_cb = [&] (auto &msg) {
+    auto terrain_map_cb = [&] (auto &msg) {
         map_ = std::make_shared<scrimmage::interaction::TerrainMap>(msg->data);
     };
-    subscribe<scrimmage_msgs::Terrain>("GlobalNetwork", "Terrain", terrain_map_cb);*/
+    subscribe<scrimmage_msgs::Terrain>("GlobalNetwork", "Terrain", terrain_map_cb);
 }
 
 bool OceanParams2csv::step() {
@@ -86,8 +89,7 @@ bool OceanParams2csv::step() {
     scrimmage::CSV csv;
     auto msg = std::make_shared<Message<ContactMap>>();//Create contact map of other UUVs
 
-    //if (map_ == nullptr) return true;
-    std::cout << "Code is here" << std::endl;// Wait until we have received a valid terrain map
+    if (map_ == nullptr) return true;
     if (paramNew_ == nullptr) return true;//// Wait until we have received a valid ocean params
     // Need (x1,y1,z1) [position of parent]
     source_x = parent_->state_truth()->pos()(0);
@@ -112,39 +114,69 @@ bool OceanParams2csv::step() {
     // t 1/n [n number of points to output between vehicles]
     // then write csv file to grab the ocean params and depth at each (x_t, y_t, z_all)
     boost::optional<double> height;
+  
     for ( int idx_t = 0; idx_t < range_length; idx_t++ ) {
         x_pos[idx_t] = ( source_x + ( rcvr_x - source_x ) * ( idx_t + 1 ) / range_length );
         y_pos[idx_t] = ( source_y + ( rcvr_y - source_y ) * ( idx_t + 1 ) / range_length );
-        //height = map_->height_at(x_pos[idx_t],y_pos[idx_t]);
-        //depth[idx_t] = *height;
-        depth[idx_t] = 9999;
+        height = map_->height_at(x_pos[idx_t],y_pos[idx_t]);
+        depth[idx_t] = *height;
     }
-
+    double z_max = *(std::min_element(depth.begin(), depth.end()));
+    //std::cout << "Z Max is: " << z_max << std::endl;
+    //for ( int idx_t = 0; idx_t < range_length; idx_t++ ) {    
+        for ( int idx_z = 0; idx_z < depth_length; idx_z++) {
+            z_pos[idx_z] = (z_max) * idx_z / (depth_length-1);
+            double c_tmp = paramNew_->param_at(x_pos[0],y_pos[0],z_pos[idx_z]);
+            c_z[idx_z] = c_tmp;
+        }
+    //}
     // Write the CSV file to the root log directory
         std::string filename = "/home/buzz/.scrimmage/logs/latest/OceanParam.csv";
     // Print to csv file....
         // Create the file
-        if (csv.read_csv(filename)) {
-            return true;
-        }
         if (!csv.open_output(filename)) {
             std::cout << "Couldn't create output file" << endl;
             return false;
         }
-        csv.set_column_headers("x1,y1,z1,x2,y2,z2,x,y,z,depth,sound_speed");
-        for ( unsigned idx_t = 0; idx_t < range_length; idx_t++ ) {
-            csv.append(sc::CSV::Pairs{{"x1", source_x},
+        csv.set_column_headers("x1,y1,z1,x2,y2,z2,x_slice,y_slice,depth_slice,z,c_z");
+        if (range_length > depth_length){
+            unsigned idx_z;
+            for ( unsigned idx_t = 0; idx_t < range_length; idx_t++ ) {
+                if (idx_t > depth_length) {
+                    idx_z = depth_length;
+                } else {idx_z = idx_t;}
+                csv.append(sc::CSV::Pairs{{"x1", source_x},
                     {"y1", source_y},
                     {"z1", source_z},
                     {"x2", rcvr_x},
                     {"y2", rcvr_y},
                     {"z2", rcvr_z},
-                    {"x", x_pos[idx_t]},
-                    {"y", y_pos[idx_t]},
-                    {"z", depth[idx_t]},
-                    {"depth", depth[idx_t]},
-                    {"sound_speed", depth[idx_t]}});
+                    {"x_slice", x_pos[idx_t]},
+                    {"y_slice", y_pos[idx_t]},
+                    {"depth_slice", depth[idx_t]},
+                    {"z", z_pos[idx_z]},
+                    {"c_z", c_z[idx_z]}});
+            }
+        } else {
+            unsigned idx_t;
+            for ( unsigned idx_z = 0; idx_z < depth_length; idx_z++ ) {
+                if (idx_z > range_length) {
+                    idx_t = range_length;
+                } else {idx_t = idx_z;}
+                csv.append(sc::CSV::Pairs{{"x1", source_x},
+                    {"y1", source_y},
+                    {"z1", source_z},
+                    {"x2", rcvr_x},
+                    {"y2", rcvr_y},
+                    {"z2", rcvr_z},
+                    {"x_slice", x_pos[idx_t]},
+                    {"y_slice", y_pos[idx_t]},
+                    {"depth_slice", depth[idx_t]},
+                    {"z", z_pos[idx_z]},
+                    {"c_z", c_z[idx_z]}});
+            }
         }
+
         csv.close_output();
     std::cout << "Ocean Params Saved" <<std::endl;
     return true;

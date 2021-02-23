@@ -5,6 +5,7 @@
   
   <!-- Number of Data Points in range slice Between UUVs -->
   <range_length>100</range_length>
-
+  <!-- Number of Data Points in depth [0:(Max Terrain Depth)] -->
+  <depth_length>100</depth_length>
   
 </params>

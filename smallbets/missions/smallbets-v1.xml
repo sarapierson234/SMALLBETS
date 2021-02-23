@@ -36,7 +36,7 @@
   <network>LocalNetwork</network>
 <!-- maybe include a metrics here for counting how many times the uuvs try to ping one another?-->
 
-<entity_interaction center="0, 0, -100">TerrainGenerator</entity_interaction>
+<entity_interaction center="0, 0, -1000">TerrainGenerator</entity_interaction>
 <entity_interaction>OceanParameters</entity_interaction>
 
 

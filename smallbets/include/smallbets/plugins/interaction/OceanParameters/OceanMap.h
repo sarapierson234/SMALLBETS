@@ -36,13 +36,14 @@
 #include <scrimmage/simcontrol/EntityInteraction.h>
 #include <scrimmage/entity/Entity.h>
 #include <scrimmage/proto/Shape.pb.h>
-
 #include <smallbets/msgs/Ocean.pb.h>
+
 #include <vector>
 #include <string>
 #include <limits>
 #include <random>
 #include <memory>
+
 #include <boost/optional.hpp>
 
 namespace scrimmage {

@@ -5,12 +5,12 @@
   <!-- Sound Speed Profile -->
   <technique>Munk</technique>
 
-  <x_length>100</x_length> <!-- Number of Points -->
-  <y_length>100</y_length> <!-- Number of Points -->
+  <x_length>50</x_length> <!-- Number of Points -->
+  <y_length>50</y_length> <!-- Number of Points -->
   <z_length>100</z_length> <!-- Number of Points -->
   <x_resolution>100.0</x_resolution><!-- meters between points-->
   <y_resolution>100.0</y_resolution><!-- meters -->
-  <z_resolution>30.0</z_resolution><!-- meters -->
+  <z_resolution>50.0</z_resolution><!-- meters -->
 
 
   <!-- if less than 0, use simulation's top-level seed -->

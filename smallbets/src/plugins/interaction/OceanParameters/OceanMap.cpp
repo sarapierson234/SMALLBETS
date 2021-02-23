@@ -86,7 +86,7 @@ bool OceanMap::generate_Munk() {
     double z = 0;
     // MUNK Profile C(z) = 1500 * (1 + E * (zt - 1 + E^-zt)); zt = (2 * (z - zc))/zc;
     double ep = 0.00737;
-    double zc = 1300; //m depth of minimum sound speed
+    double zc = 500; //m depth of minimum sound speed
     for (unsigned int row = 0; row < y_length_; ++row) {
         for (unsigned int col = 0; col < x_length_; ++col) {
             for (unsigned int depth = 0; depth < z_length_; ++depth) {
@@ -122,12 +122,33 @@ smallbets::msgs::Ocean OceanMap::proto() {
 
 //Method to get parameters at XYZ location
 double OceanMap::param_at(const double &x, const double &y,const double &z) {
-//return grid_[idx];
-// get nearest neighbor or average around value
-if (x >= 1 || y >= 1 || z >= 1) {
-    return 1555;
-}
-return 9999;
+// get nearest neighbor (Add on later interp around value)
+    std::vector<int> idx_dist(x_length_*y_length_*z_length_);
+    std::vector<double> dist(x_length_*y_length_*z_length_);
+    for (unsigned int r = 0; r < y_length_; ++r) {
+        for (unsigned int c = 0; c < x_length_; ++c) {
+            for (unsigned int d = 0; d < z_length_; ++d) {
+                int idx_cnt = (r*x_length_*z_length_)+(c*z_length_)+d;
+                double x2 = c * x_resolution_ - (x_length_ * x_resolution_ * 0.5);
+                double y2 = r * y_resolution_ - (y_length_ * y_resolution_ * 0.5);
+                double z2 = d * z_resolution_;
+                double xSqr = (x - x2) * (x - x2);
+                double ySqr = (y - y2) * (y - y2);
+                double zSqr = ((-z) - z2) * ((-z) - z2);
+                dist[idx_cnt] = sqrt(xSqr + ySqr + zSqr);
+                idx_dist[idx_cnt] = idx_cnt;
+            }
+        }
+    }
+    double dist_min = (std::min_element(dist.begin(), dist.end())) - dist.begin();
+    int idx_min = idx_dist[dist_min];
+
+    if (dist_min >= 0) {
+        return grid_[idx_min];
+    }
+    std::cout << "Error: Sound Speed Data out of Range" << std::endl;
+    return 9999;
+    //grid_[(row*x_length_*z_length_)+(col*z_length_)+depth] = C_z_;
 }
 } // namespace interaction
 } // namespace scrimmage
