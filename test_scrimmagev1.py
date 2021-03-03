@@ -20,8 +20,8 @@ with open('OceanParam_example.csv') as scrimfile:
 	data = csv.reader(scrimfile, delimiter='   ')
 
 """Basic source and receiver paramters"""
-source_depth =  %(extract row 1 column 3)
-receiver_depth = (extract row 1 column 6)
+sd =  %(extract row 1 column 3)
+rd = (extract row 1 column 6)
 
 """now in the following lines we create a grid for simulation"""
 
@@ -35,7 +35,7 @@ cb		=	1600
 pb		=	1.5
 ab		=	0.5
 """initialize pyat objs with parameters configured above"""
-s = Source(source_depth)
+s = Source(sd)
 r = Dom(X, Z)  #domain
 pos = Pos(s,r)
 pos.s.depth	= [sd] 
@@ -114,3 +114,4 @@ levs = np.linspace(-30, 0, 20)
 plt.contourf(np.squeeze(p), levels=levs)
 plt.gca().invert_yaxis()
 plt.show()
+
