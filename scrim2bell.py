@@ -16,17 +16,16 @@ from pyat.pyat.readwrite import *
 import pandas as pd
 import pandas.read_csv
 
-with open('OceanParam_example.csv') as scrimfile:
-	data = csv.reader(scrimfile, delimiter='   ')
+data = pd.read_csv("OceanParam_example.csv")
 
 """Basic source and receiver paramters"""
-sd =  %(extract row 1 column 3)
-rd = (extract row 1 column 6)
+sd = data['z1'][2]
+rd = data['z2'][2]
 
 """now in the following lines we create a grid for simulation"""
 
-Z = (extract the entirety of column 10)
-X = (extract the entirety of column 7)
+Z = data['z']
+X = data['x_slice']
 
 cw		=	1500
 pw		=	1
@@ -45,24 +44,19 @@ pos.r.range		=	X
 pos.Nsd = 1 # number of source ranges
 pos.Nrd = len(X) # number of receiver ranges
 
-"""
-Set up environment
-"""
-cw		=	1500 # default sound speed
-pw		=	1 # density (kg/m^3
-aw		=	0 # atten in water
 
-depth = [first number in Z (column10), last number in column10]
+depth = [0, data['z'].iloc[-1]] #layer depths (so the depth of the "surface" layer and the bottom layer
+z1 = Z #SSP depths, alphaR is the corresponding SSP values 
+#note z1 and alphaR need to be ==length
+alphaR = data['c_z']
+betaR	=	0.0*np.array([1]*len(z1)) #shear speed at each depth
+rho		=	pw*np.array([1]*len(z1)) #rho at each depth-->in future this could also be read-in
+alphaI	=	aw*np.array([1]*len(z1)) #atten at each depth	
+betaI	=	0.0*np.array([1]*len(z1)) #shear attenuation at each depth
 
-z1 = [extract column 10 as a vector]
-alphaR = [extract column 11 as vector]
-
-betaR	=	0.0*np.array([1]*len(z1))		
-rho		=	pw*np.array([1]*len(z1))		
-alphaI	=	aw*np.array([1]*len(z1))		
-betaI	=	0.0*np.array([1]*len(z1))
 
 ssp1 = SSPraw(z1, alphaR, betaR, rho, alphaI, betaI)
+
 
 #	Sound-speed layer specifications
 raw = [ssp1]
@@ -72,6 +66,7 @@ N			=	[0, 0]
 sigma		=	[0, 0]	
 raw[0]
 ssp = SSP(raw, depth, NMedia, Opt, N, sigma)
+
 
 # Layer 2
 alphaR = 1600 # p wave speed in sediment
@@ -85,26 +80,28 @@ Opt = 'A'
 bottom = BotBndry(Opt, hs)
 top = TopBndry('CVM')
 bdy = Bndry(top, bottom)
-low = 1400
-high = 1e9
+
+#below are the min/max ssp, used only for modal calculations
+low = data['c_z'][data['c_z'].idxmin()]
+high = data['c_z'][data['c_z'].idxmax()]
 cInt = cInt(low, high)
 RMax = max(X)
 freq = 3000
 
 # Beam params
-run_type = 'A'
-nbeams = 100
-alpha = np.linspace(-20,20, 100)
-box = Box( 5500, 100)
-deltas=0
-beam = Beam(RunType=run_type, Nbeams=nbeams, alpha=alpha,box=box,deltas=deltas)
+run_type = 'A' #this is what get the .arr output
+nbeams = 100 #originally at 100
+alpha = np.linspace(-20,20, 100)# min and max launch angle -20 degrees to 20 degrees
+box = Box( 1000, 2) #bound the region you let the beams go, depth in meters and range in km
+deltas=0# length step of ray trace, 0 means automatically choose
+beam = Beam(RunType=run_type, Nbeams=nbeams, alpha=alpha,box=box,deltas=deltas)# package
 
-write_env('py_env_smallbetsv1.env', 'BELLHOP', 'Pekeris profile', freq, ssp, bdy, pos, beam, cInt, RMax)
+write_env('test_smallbetsv1.env', 'BELLHOP', 'Pekeris profile', freq, ssp, bdy, pos, beam, cInt, RMax)
   
 
-system("wine64 ~/Downloads/AcousticToolbox/bin/bellhop.exe py_env_smallbetsv1")
+system("wine64 ~/Downloads/AcousticToolbox/bin/bellhop.exe py_env")
 
-[x,x,x,x,ppos, p] = read_shd("py_env_smallbetsv1.shd")
+[x,x,x,x,ppos, p] = read_shd("test_smallbetsv1.shd")
 
 print(p.shape)
 p = abs(p)
@@ -114,4 +111,3 @@ levs = np.linspace(-30, 0, 20)
 plt.contourf(np.squeeze(p), levels=levs)
 plt.gca().invert_yaxis()
 plt.show()
-
