@@ -131,7 +131,7 @@ bool OceanParams2csv::step() {
         }
     //}
     // Write the CSV file to the root log directory
-        std::string filename = "/home/buzz/.scrimmage/logs/latest/OceanParam.csv";
+        std::string filename = parent_->mp()->log_dir() + "/" + "OceanParam.csv";
     // Print to csv file....
         // Create the file
         if (!csv.open_output(filename)) {
