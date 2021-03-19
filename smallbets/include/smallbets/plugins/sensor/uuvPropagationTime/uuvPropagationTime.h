@@ -30,43 +30,43 @@
  *
  */
 
-#ifndef INCLUDE_MY_SCRIMMAGE_PLUGINS_PLUGINS_INTERACTION_OCEANPARAMETERS_OCEANP$
-#define INCLUDE_MY_SCRIMMAGE_PLUGINS_PLUGINS_INTERACTION_OCEANPARAMETERS_OCEANP$
+#ifndef INCLUDE_SMALLBETS_PLUGINS_SENSOR_UUVPROPAGATIONTIME_UUVPROPAGATIONTIME_H_
+#define INCLUDE_SMALLBETS_PLUGINS_SENSOR_UUVPROPAGATIONTIME_UUVPROPAGATIONTIME_H_
 
-#include <scrimmage/simcontrol/EntityInteraction.h>
+#include <scrimmage/sensor/Sensor.h>
 #include <scrimmage/entity/Entity.h>
+#include <scrimmage/entity/Contact.h>
+#include <scrimmage/pubsub/Publisher.h>
 
 #include <map>
-#include <list>
 #include <string>
+#include <tuple>
+#include <memory>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <ctype.h>
 
 namespace scrimmage {
-namespace interaction {
-
-class OceanParameters : public scrimmage::EntityInteraction {
+namespace sensor {
+class uuvPropagationTime : public scrimmage::Sensor {
  public:
-    OceanParameters();
-    bool init(std::map<std::string, std::string> &mission_params,
-              std::map<std::string, std::string> &plugin_params) override;
-    bool step_entity_interaction(std::list<scrimmage::EntityPtr> &ents,
-                                 double t, double dt) override;
-};
+    uuvPropagationTime();
+    void init(std::map<std::string, std::string> &params) override;
+    bool step() override;
 
-protected:
-// below are the publishing lines in the TG.h
-//TerrainMap map_;
-//bool terrain_published_ = false;
-//scrimmage::PublisherPtr terrain_pub_;
-//RandomPtr random_;
-//now here is what I think needs to be included in our code--is it right?
-        OceanParameters map_;
-        bool oceanparameters_published_ = false;
-        scrimmage::PublisherPtr oceanparameters_pub_;
-        RandomPtr random_;
+ protected:
+    char *file_in_memory;
+    int loop = true;
+    int count = 0;
+    char text[sizeof("_Ping")] = " Ping";
  private:
 };
-} // namespace interaction
+} // namespace sensor
 } // namespace scrimmage
-#endif // INCLUDE_MY_SCRIMMAGE_PLUGINS_PLUGINS_INTERACTION_OCEANPARAMETERS_OCEA$
-
-
+#endif // INCLUDE_SMALLBETS_PLUGINS_SENSOR_UUVPROPAGATIONTIME_UUVPROPAGATIONTIME_H_
