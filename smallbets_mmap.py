@@ -2,7 +2,9 @@ import mmap
 import os
 import shutil
 import time
-
+import pandas as pd
+import test  #test needs to change to scrim2bell when it gets fixed fully
+import first_impulse from test #here as well
 
 def main():
     # Create new empty file to back memory map on disk
@@ -20,8 +22,13 @@ def main():
             if tmp2[0] == '1':
                 # Write Pong and 0
                 # Call Bellhop python code here and then write infomation to mmap file
-
+		#ATTEN SHAUN --> I called the code above, is that alright? 
+		amplitude = first_impulse[1]
+		delay = first_impulse[2]
+		#writing the amp and del to the mmap file
+		fd.writelines(L) for L = [amplitude, delay]
                 #Write first bit to pass control to scrimmage plus new message
+
                 tmp2 = '0' + ' Pong' + tmp2[6:]
                 tmp = tmp2.encode()
                 mmap_buf[:] = tmp #push message to mmap file
