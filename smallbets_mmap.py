@@ -33,6 +33,8 @@ def main():
                 #impulse_list = pd.read_csv(r'~/Python_misc/pyat/test/bellhop_test/first_impulse.csv')
                 #print(impulse_list)
                 
+		## Call scrim2bell.py  (this takes the env file from scrimmage, runs bellhop and outputs first impulse)
+		## either skip writing to csv or write to csv and import
                 tmp2 = '0' + 'amplitude_n_delay' + tmp2[6:]
                 tmp = tmp2.encode()
                 mmap_buf[:] = tmp #push message to mmap file
