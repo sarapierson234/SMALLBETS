@@ -33,8 +33,8 @@ def main():
 		## Call scrim2bell.py  (this takes the env file from scrimmage, runs bellhop and outputs first impulse)
 		## either skip writing to csv or write to csv and import
                 from home/buzz/Python_misc/pyat/bellhop_test import scrim2bell()
-                
-                import first_impulse.csv
+                scrim2bell()
+                ##import first_impulse.csv
                 with open ('first_impulse.csv', newline='') as csvfile:
                     amplitude_n_delay = csv.reader('csvfile', delimiter=',')
                 amplitude_n_delay = str(amplitude_n_delay)
