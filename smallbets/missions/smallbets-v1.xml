@@ -53,6 +53,7 @@
 
     <heading>90</heading>
     <sensor>OceanParams2csv</sensor>
+    <sensor>uuvPropagationTime</sensor>
     <autonomy tags="REAL"
               network_name="LocalNetwork" topic_Name="WaypointList"
               mode="racetrack"

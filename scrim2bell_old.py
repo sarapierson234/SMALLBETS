@@ -101,8 +101,27 @@ write_env('test_smallbetsv1.env', 'BELLHOP', 'Pekeris profile', freq, ssp, bdy, 
 
 system("wine64 ~/Downloads/AcousticToolbox/bin/bellhop.exe py_env")
 
-[x,x,x,x,ppos, p] = read_shd("test_smallbetsv1.shd")
 
+[x,x,x,x,ppos, p] = read_shd("test_smallbetsv1.shd")
+[Arr, Pos] = read_arrivals_asc("test_smallbetsv1.arr") #option 2 here is the number of arrivals allowed (typically 96? what does mbp 9/96 mean in the .m file?)
+
+
+AmpDel = []
+for i in Arr:
+	#print(i)
+	if len(i) != 0:
+		#append a 0 if you want to document the empty first  whatever odd arrivals 
+        	AmpDel.append([i[0][0], i[0][1]]) #no reflections (echos) considered
+		#we can also get (future) angle
+#AD = pd.DataFrame(AmpDel)
+#AD.to_csv(bell2scrim.csv)
+pd.DataFrame(AmpDel).to_csv('bell2scrim.csv')
+#Here is where we print the amplitude and delay into the csv file to be passed back to scrimmage
+	
+#amplitudes = Arr.A
+#delays = Arr.delay
+#print(amplitudes)
+#print(delays)
 print(p.shape)
 p = abs(p)
 p = 10*np.log10(p/np.max(p))
@@ -111,3 +130,5 @@ levs = np.linspace(-30, 0, 20)
 plt.contourf(np.squeeze(p), levels=levs)
 plt.gca().invert_yaxis()
 plt.show()
+
+
